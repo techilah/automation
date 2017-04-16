@@ -3,7 +3,7 @@
 namespace Facebook\WebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
-require_once('../vendor/autoload.php');
+require_once(__DIR__ .  '/../vendor/autoload.php');
 // start Firefox with 5 second timeout
 $host = 'http://localhost:4444/wd/hub'; // this is the default
 $capabilities = DesiredCapabilities::firefox();
