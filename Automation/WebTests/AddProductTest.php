@@ -4,8 +4,8 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use \PHPUnit\Framework\TestCase;
-require_once(__DIR__ .  '/../vendor/autoload.php');
-require_once(__DIR__ . '/../lib/ProductClass.php');
+require_once(__DIR__ .  '/../../vendor/autoload.php');
+require_once(__DIR__ . '/../../lib/ProductClass.php');
 
 class AddProduct extends TestCase{
     

@@ -4,7 +4,7 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use \PHPUnit\Framework\TestCase;
-require_once(__DIR__ .  '/../vendor/autoload.php');
+require_once(__DIR__ .  '/../../vendor/autoload.php');
 
 class LoginTest extends TestCase{
     
@@ -21,6 +21,11 @@ class LoginTest extends TestCase{
     }
     
     public function tearDown() {
+        
+        if($this->hasFailed()){
+            $imageName = "screenshot_" . strtotime(date('Y-m-d h:i:s')) . '.png';
+            $this->webDriver->takeScreenshot('C:\Results\screenshots\\' . $imageName);
+        }
         $this->webDriver->quit();
         parent::tearDown();
         
@@ -69,6 +74,7 @@ class LoginTest extends TestCase{
         $this->assertTrue(count($elements) > 0, 'Logout link not found'); 
         
     }   
+
 }
 
 
