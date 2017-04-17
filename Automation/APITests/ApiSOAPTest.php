@@ -4,7 +4,7 @@ use \PHPUnit\Framework\TestCase;
 require_once(__DIR__ .  '/../../vendor/autoload.php');
 require_once(__DIR__ . '/../../lib/conf.php');
 
-class LoginTest extends TestCase{
+class ApiSOAPTest extends TestCase{
     
     protected $client;
     protected $sessionID;
