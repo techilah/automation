@@ -42,8 +42,9 @@ class LoginTest extends TestCase{
         
         $elements = $this->webDriver->findElements(WebDriverBy::id('login'));        
         $this->assertTrue(count($elements) > 0, 'Login button not found');  
-        
-        $elements = $this->webDriver->findElement(WebDriverBy::id('username'))->sendKeys('admin');
+
+		$elements = $this->webDriver->findElement(WebDriverBy::id('username'))->sendKeys('admin');
+
         $elements = $this->webDriver->findElement(WebDriverBy::id('password'))->sendKeys('wrongpassword');
         $elements = $this->webDriver->findElement(WebDriverBy::id('login'))->click();
         

@@ -13,12 +13,12 @@ class ApiSOAPTest extends TestCase{
     public function setUp(){
         
         $host   = "https://api.avangate.com/subscription";
-	$this->client = new \SoapClient($host . "/2.0/soap/?wsdl", array('location' => $host . "/2.0/soap/"));
+		$this->client = new \SoapClient($host . "/2.0/soap/?wsdl", array('location' => $host . "/2.0/soap/"));
         
         date_default_timezone_set('UTC');
         $now          = date('Y-m-d H:i:s'); 
-	$string = strlen(MERCHANT_CODE) . MERCHANT_CODE . strlen($now) . $now;
-	$hash   = hash_hmac('md5', $string, SECRET_KEY);
+		$string = strlen(MERCHANT_CODE) . MERCHANT_CODE . strlen($now) . $now;
+		$hash   = hash_hmac('md5', $string, SECRET_KEY);
         
         $this->sessionID = $this->client->login(MERCHANT_CODE, $now, $hash);
     }
