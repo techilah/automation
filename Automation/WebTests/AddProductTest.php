@@ -3,6 +3,7 @@
 namespace Facebook\WebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Facebook\WebDriver\Firefox\FirefoxDriver;
 use \PHPUnit\Framework\TestCase;
 require_once(__DIR__ .  '/../../vendor/autoload.php');
 require_once(__DIR__ . '/../../lib/ProductClass.php');
@@ -18,7 +19,8 @@ class AddProduct extends TestCase{
 
     public function setUp(){
         $host = 'http://localhost:4444/wd/hub'; // this is the default
-        $capabilities = DesiredCapabilities::firefox();
+        $capabilities = DesiredCapabilities::chrome();
+        //$capabilities->setCapability(FirefoxDriver::PROFILE, base64_encode(file_get_contents('Automation.zip')));
         $this->webDriver = RemoteWebDriver::create($host, $capabilities, 5000);
         
         $this->productClass = new \ProductClass();
@@ -34,9 +36,9 @@ class AddProduct extends TestCase{
         
         $this->webDriver->get($this->url); 
         
-        $elements = $this->webDriver->findElement(WebDriverBy::id('username'))->sendKeys('admin');
-        $elements = $this->webDriver->findElement(WebDriverBy::id('password'))->sendKeys('admin');
-        $elements = $this->webDriver->findElement(WebDriverBy::id('login'))->click();
+        $elements = $this->webDriver->findElement(WebDriverBy::name('username'))->sendKeys('admin');
+        $elements = $this->webDriver->findElement(WebDriverBy::name('password'))->sendKeys('admin');
+        $elements = $this->webDriver->findElement(WebDriverBy::name('login'))->click();
         
         $this->webDriver->wait(3, 200)->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::linkText('Logout')));
         $elements = $this->webDriver->findElement(WebDriverBy::linkText('Add product'))->click();
@@ -55,6 +57,15 @@ class AddProduct extends TestCase{
         $elements = $this->webDriver->findElements(WebDriverBy::linkText($productName));        
         $this->assertTrue(count($elements) > 0, 'Product was not added'); 
         
+        $elements = $this->webDriver->findElement(WebDriverBy::linkText($productName))->click();
+        $this->webDriver->wait(3, 200)->until(WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::name('unitprice')));
+        sleep(3);
+        $unitPrice = $this->webDriver->findElement(WebDriverBy::name('unitprice'))->getAttribute('value');
+        
+        $this->assertEquals(3.14, $unitPrice, "Unit price mismatch", 0.01);
+        
+        
+        
         $allProducts = $this->productClass->getProducts();
         
         
@@ -71,6 +82,7 @@ class AddProduct extends TestCase{
         $this->assertTrue($found, "Product not found in the DB");
         
     }
+
 }
 
 
